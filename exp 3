@@ -1,0 +1,21 @@
+import ipaddress
+
+def subnet_info(ip_with_prefix):
+    # Parse the IP address and subnet using the ipaddress module
+    network = ipaddress.IPv4Network(ip_with_prefix, strict=False)
+    
+    print(f"Network: {network.network_address}")
+    print(f"Subnet Mask: {network.netmask}")
+    print(f"Broadcast Address: {network.broadcast_address}")
+    
+    # Display the range of available IP addresses (excluding network and broadcast)
+    hosts = list(network.hosts())
+    print(f"First Usable IP: {hosts[0]}")
+    print(f"Last Usable IP: {hosts[-1]}")
+    print(f"Total Usable IPs: {len(hosts)}")
+
+# Input: CIDR notation (e.g., 192.168.1.0/24)
+ip_with_prefix = input("Enter IP address with subnet (e.g., 192.168.1.0/24): ")
+
+# Call the function to display subnetting information
+subnet_info(ip_with_prefix)
